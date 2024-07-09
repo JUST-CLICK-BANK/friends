@@ -45,9 +45,11 @@ public class FriendController {
     }
 
     // 친구 요청 삭제
-    @DeleteMapping("/request")
-    public void rejectFriendRequest() {
-        friendService.rejectFriendRequest();
+    @DeleteMapping("/request/{friendId}")
+    public void rejectFriendRequest(
+            @PathVariable("friendId") Long friendId
+    ) {
+        friendService.rejectFriendRequest(friendId);
     }
 
     // 친구 삭제

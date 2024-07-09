@@ -18,7 +18,7 @@ public interface FriendService {
     void confirmFriendRequest(Long friendId, ConfirmFriendRequest request);
 
     // 친구 요청 거절
-    void rejectFriendRequest();
+    void rejectFriendRequest(Long friendId);
 
     // 친구 삭제
     void removeFriend();
