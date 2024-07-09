@@ -1,5 +1,6 @@
 package org.click.friends.service;
 
+import org.click.friends.domain.dto.request.ConfirmFriendRequest;
 import org.click.friends.domain.dto.request.FriendRequest;
 import org.click.friends.domain.entity.Friend;
 
@@ -11,10 +12,10 @@ public interface FriendService {
     List<Friend> getFriends(UUID userId);
 
     // 친구 요청
-    void acceptFriendRequest(FriendRequest friendRequest);
+    void acceptFriendRequest(FriendRequest request);
 
     // 친구 요청 수락
-    void confirmFriendRequest(Long friendId);
+    void confirmFriendRequest(Long friendId, ConfirmFriendRequest request);
 
     // 친구 요청 거절
     void rejectFriendRequest();

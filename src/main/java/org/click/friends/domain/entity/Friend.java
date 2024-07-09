@@ -1,10 +1,7 @@
 package org.click.friends.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -19,6 +16,7 @@ public class Friend {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "FRIEND_ID")
     private Long friendId;
+    @Setter
     @Column(name = "FRIENDSHIP")
     private Boolean friendship;
     @Column(name = "USER_ID_1")
