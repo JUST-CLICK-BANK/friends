@@ -1,6 +1,7 @@
 package org.click.friends.service;
 
 import lombok.RequiredArgsConstructor;
+import org.click.friends.domain.dto.request.FriendRequest;
 import org.click.friends.domain.entity.Friend;
 import org.click.friends.domain.repository.FriendRepository;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public void acceptFriendRequest() {
-
+    public void acceptFriendRequest(FriendRequest friendRequest) {
+        friendRepository.save(friendRequest.toEntity());
     }
 
     @Override

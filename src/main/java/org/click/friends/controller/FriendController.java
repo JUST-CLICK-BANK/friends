@@ -2,6 +2,7 @@ package org.click.friends.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.click.friends.domain.dto.request.FriendRequest;
 import org.click.friends.domain.dto.response.FriendResponse;
 import org.click.friends.domain.entity.Friend;
 import org.click.friends.service.FriendService;
@@ -28,9 +29,9 @@ public class FriendController {
     // 친구 요청
     @PostMapping("/request")
     public void acceptFriendRequest(
-
+            @RequestBody FriendRequest friendRequest
     ) {
-        friendService.acceptFriendRequest();
+        friendService.acceptFriendRequest(friendRequest);
     }
 
     // 친구 요청 수락
