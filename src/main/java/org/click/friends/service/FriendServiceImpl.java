@@ -35,6 +35,7 @@ public class FriendServiceImpl implements FriendService {
     public void confirmFriendRequest(Long friendId, ConfirmFriendRequest request) {
         Friend friend = friendRepository.findById(friendId).orElseThrow(IllegalArgumentException::new);
         friend.setFriendship(true);
+
         friendRepository.save(friend); // 기존 데이터 업데이트
         friendRepository.save(request.toEntity()); // user_id 순서 바꿔서 새로 저장
     }
@@ -43,12 +44,17 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public void rejectFriendRequest(Long friendId) {
         Friend friend = friendRepository.findById(friendId).orElseThrow(IllegalArgumentException::new);
+
         friendRepository.delete(friend);
     }
 
     // 친구 삭제
     @Override
-    public void removeFriend() {
+    @Transactional
+    public void removeFriend(Long friendId) {
+        Friend friend = friendRepository.findById(friendId).orElseThrow(IllegalArgumentException::new);
 
+        friendRepository.deleteByUserId1AndUserId2(friend.getUserId2(), friend.getUserId1());
+        friendRepository.delete(friend);
     }
 }
