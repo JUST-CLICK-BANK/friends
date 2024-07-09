@@ -21,5 +21,5 @@ public interface FriendService {
     void rejectFriendRequest(Long friendId);
 
     // 친구 삭제
-    void removeFriend();
+    void removeFriend(Long friendId);
 }

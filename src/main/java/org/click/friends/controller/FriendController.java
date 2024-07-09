@@ -53,8 +53,10 @@ public class FriendController {
     }
 
     // 친구 삭제
-    @DeleteMapping
-    public void removeFriend() {
-        friendService.removeFriend();
+    @DeleteMapping("/{friendId}")
+    public void removeFriend(
+            @PathVariable("friendId") Long friendId
+    ) {
+        friendService.removeFriend(friendId);
     }
 }
