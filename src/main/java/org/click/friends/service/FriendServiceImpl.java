@@ -1,7 +1,7 @@
 package org.click.friends.service;
 
 import lombok.RequiredArgsConstructor;
-import org.click.friends.domain.dto.response.FriendResponse;
+import org.click.friends.domain.entity.Friend;
 import org.click.friends.domain.repository.FriendRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,8 @@ public class FriendServiceImpl implements FriendService {
     private final FriendRepository friendRepository;
 
     @Override
-    public List<FriendResponse> getAllFriends() {
-        return List.of();
+    public List<Friend> getFriends(UUID userId) {
+        return friendRepository.findByFriendshipIsTrueAndUserId1(userId);
     }
 
     @Override
