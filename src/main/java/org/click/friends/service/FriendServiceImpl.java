@@ -15,26 +15,31 @@ public class FriendServiceImpl implements FriendService {
 
     private final FriendRepository friendRepository;
 
+    // 친구 목록 조회
     @Override
     public List<Friend> getFriends(UUID userId) {
         return friendRepository.findByFriendshipIsTrueAndUserId1(userId);
     }
 
+    // 친구 요청
     @Override
     public void acceptFriendRequest(FriendRequest friendRequest) {
         friendRepository.save(friendRequest.toEntity());
     }
 
+    // 친구 요청 수락
     @Override
-    public void confirmFriendRequest() {
-
+    public void confirmFriendRequest(Long friendId) {
+        // TODO 여기서부터
     }
 
+    // 친구 요청 삭제
     @Override
     public void rejectFriendRequest() {
 
     }
 
+    // 친구 삭제
     @Override
     public void removeFriend() {
 

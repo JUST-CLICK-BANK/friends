@@ -18,7 +18,7 @@ public class FriendController {
 
     private final FriendService friendService;
 
-    // 친구 조회
+    // 친구 목록 조회
     @GetMapping("/{userId}")
     public List<Friend> getFriends(
             @PathVariable("userId")UUID userId
@@ -35,9 +35,11 @@ public class FriendController {
     }
 
     // 친구 요청 수락
-    @PutMapping("/request")
-    public void confirmFriendRequest() {
-        friendService.confirmFriendRequest();
+    @PutMapping("/request/{friendId}")
+    public void confirmFriendRequest(
+            @PathVariable("friendId") Long friendId
+    ) {
+        friendService.confirmFriendRequest(friendId);
     }
 
     // 친구 요청 삭제
