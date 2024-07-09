@@ -1,4 +1,4 @@
-package org.click.friends.domain.entity;
+package org.click.friends.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

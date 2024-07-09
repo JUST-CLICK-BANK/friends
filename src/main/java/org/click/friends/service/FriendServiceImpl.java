@@ -2,10 +2,10 @@ package org.click.friends.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.click.friends.domain.dto.request.ConfirmFriendRequest;
-import org.click.friends.domain.dto.request.FriendRequest;
-import org.click.friends.domain.entity.Friend;
-import org.click.friends.domain.repository.FriendRepository;
+import org.click.friends.dto.request.ConfirmFriendRequest;
+import org.click.friends.dto.request.FriendRequest;
+import org.click.friends.entity.Friend;
+import org.click.friends.repository.FriendRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,5 +56,11 @@ public class FriendServiceImpl implements FriendService {
 
         friendRepository.deleteByUserId1AndUserId2(friend.getUserId2(), friend.getUserId1());
         friendRepository.delete(friend);
+    }
+
+    // 친구 요청 목록
+    @Override
+    public List<Friend> getFriendRequests(UUID userId) {
+        return friendRepository.findByFriendshipIsFalseAndUserId2(userId);
     }
 }

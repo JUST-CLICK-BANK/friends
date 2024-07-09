@@ -1,7 +1,6 @@
-package org.click.friends.domain.repository;
+package org.click.friends.repository;
 
-import org.click.friends.domain.dto.response.FriendResponse;
-import org.click.friends.domain.entity.Friend;
+import org.click.friends.entity.Friend;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -12,4 +11,6 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     List<Friend> findByFriendshipIsTrueAndUserId1(UUID userId);
     // 친구의 친구 목록에서 나를 삭제
     void deleteByUserId1AndUserId2(UUID userId2, UUID userId1);
+    // 친구 요청 목록
+    List<Friend> findByFriendshipIsFalseAndUserId2(UUID userID);
 }

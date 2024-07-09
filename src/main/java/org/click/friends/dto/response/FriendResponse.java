@@ -1,6 +1,6 @@
-package org.click.friends.domain.dto.response;
+package org.click.friends.dto.response;
 
-import org.click.friends.domain.entity.Friend;
+import org.click.friends.entity.Friend;
 
 import java.util.UUID;
 

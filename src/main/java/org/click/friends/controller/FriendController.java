@@ -2,10 +2,9 @@ package org.click.friends.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.click.friends.domain.dto.request.ConfirmFriendRequest;
-import org.click.friends.domain.dto.request.FriendRequest;
-import org.click.friends.domain.dto.response.FriendResponse;
-import org.click.friends.domain.entity.Friend;
+import org.click.friends.dto.request.ConfirmFriendRequest;
+import org.click.friends.dto.request.FriendRequest;
+import org.click.friends.entity.Friend;
 import org.click.friends.service.FriendService;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,5 +57,13 @@ public class FriendController {
             @PathVariable("friendId") Long friendId
     ) {
         friendService.removeFriend(friendId);
+    }
+
+    // 친구 요청 목록
+    @GetMapping("/{userId}/request")
+    public List<Friend> getFriendRequests(
+            @PathVariable("userId") UUID userId
+    ) {
+        return friendService.getFriendRequests(userId);
     }
 }
