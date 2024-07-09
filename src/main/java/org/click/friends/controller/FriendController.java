@@ -3,6 +3,7 @@ package org.click.friends.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.click.friends.domain.dto.response.FriendResponse;
+import org.click.friends.domain.entity.Friend;
 import org.click.friends.service.FriendService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +19,10 @@ public class FriendController {
 
     // 친구 조회
     @GetMapping("/{userId}")
-    public List<FriendResponse> getAllFriends(
+    public List<Friend> getFriends(
+            @PathVariable("userId")UUID userId
     ) {
-        return friendService.getAllFriends();
+        return friendService.getFriends(userId);
     }
 
     // 친구 요청

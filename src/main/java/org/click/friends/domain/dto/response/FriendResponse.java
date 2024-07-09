@@ -12,10 +12,10 @@ public record FriendResponse(
 ) {
     public static FriendResponse from(Friend friend) {
         return new FriendResponse(
-                friend.getFriend_id(),
+                friend.getFriendId(),
                 friend.getFriendship(),
-                friend.getUser_id_1(),
-                friend.getUser_id_2()
+                friend.getUserId1(),
+                friend.getUserId2()
         );
     }
 }

@@ -13,8 +13,8 @@ public record FriendRequest (
     public Friend toEntity() {
         return Friend.builder()
                 .friendship(friendship)
-                .user_id_1(user_id_1)
-                .user_id_2(user_id_2)
+                .userId1(user_id_1)
+                .userId2(user_id_2)
                 .build();
     }
 }
