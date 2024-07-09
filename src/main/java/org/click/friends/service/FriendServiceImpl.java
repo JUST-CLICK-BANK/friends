@@ -41,8 +41,9 @@ public class FriendServiceImpl implements FriendService {
 
     // 친구 요청 삭제
     @Override
-    public void rejectFriendRequest() {
-
+    public void rejectFriendRequest(Long friendId) {
+        Friend friend = friendRepository.findById(friendId).orElseThrow(IllegalArgumentException::new);
+        friendRepository.delete(friend);
     }
 
     // 친구 삭제
