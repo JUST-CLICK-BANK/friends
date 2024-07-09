@@ -1,8 +1,8 @@
 package org.click.friends.service;
 
-import org.click.friends.domain.dto.request.ConfirmFriendRequest;
-import org.click.friends.domain.dto.request.FriendRequest;
-import org.click.friends.domain.entity.Friend;
+import org.click.friends.dto.request.ConfirmFriendRequest;
+import org.click.friends.dto.request.FriendRequest;
+import org.click.friends.entity.Friend;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,4 +22,7 @@ public interface FriendService {
 
     // 친구 삭제
     void removeFriend(Long friendId);
+
+    // 친구 요청 목록
+    List<Friend> getFriendRequests(UUID userId);
 }
