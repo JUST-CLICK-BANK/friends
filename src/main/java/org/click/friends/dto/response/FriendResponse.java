@@ -7,15 +7,15 @@ import java.util.UUID;
 public record FriendResponse(
         Long friend_id,
         Boolean friendship,
-        UUID user_id_1,
-        UUID user_id_2
+        UUID my_id,
+        UUID target_id
 ) {
     public static FriendResponse from(Friend friend) {
         return new FriendResponse(
                 friend.getFriendId(),
                 friend.getFriendship(),
-                friend.getUserId1(),
-                friend.getUserId2()
+                friend.getMyId(),
+                friend.getTargetId()
         );
     }
 }

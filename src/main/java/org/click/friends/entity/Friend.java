@@ -19,8 +19,8 @@ public class Friend {
     @Setter
     @Column(name = "FRIENDSHIP")
     private Boolean friendship;
-    @Column(name = "USER_ID_1")
-    private UUID userId1;
-    @Column(name = "USER_ID_2")
-    private UUID userId2;
+    @Column(name = "MY_ID")
+    private UUID myId;
+    @Column(name = "TARGET_ID")
+    private UUID targetId;
 }

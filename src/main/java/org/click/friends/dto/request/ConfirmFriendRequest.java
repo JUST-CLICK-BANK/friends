@@ -7,14 +7,14 @@ import java.util.UUID;
 public record ConfirmFriendRequest(
         Long friend_id,
         Boolean friendship,
-        UUID user_id_1,
-        UUID user_id_2
+        UUID my_id,
+        UUID target_id
 ) {
     public Friend toEntity() {
         return Friend.builder()
                 .friendship(true)
-                .userId1(user_id_2)
-                .userId2(user_id_1)
+                .myId(my_id)
+                .targetId(target_id)
                 .build();
     }
 }

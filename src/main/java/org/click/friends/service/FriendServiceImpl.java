@@ -19,8 +19,8 @@ public class FriendServiceImpl implements FriendService {
 
     // 친구 목록 조회
     @Override
-    public List<Friend> getFriends(UUID userId) {
-        return friendRepository.findByFriendshipIsTrueAndUserId1(userId);
+    public List<Friend> getFriends(UUID myId) {
+        return friendRepository.findByFriendshipIsTrueAndMyId(myId);
     }
 
     // 친구 요청
@@ -54,13 +54,13 @@ public class FriendServiceImpl implements FriendService {
     public void removeFriend(Long friendId) {
         Friend friend = friendRepository.findById(friendId).orElseThrow(IllegalArgumentException::new);
 
-        friendRepository.deleteByUserId1AndUserId2(friend.getUserId2(), friend.getUserId1());
+        friendRepository.deleteByMyIdAndTargetId(friend.getTargetId(), friend.getMyId());
         friendRepository.delete(friend);
     }
 
     // 친구 요청 목록
     @Override
-    public List<Friend> getFriendRequests(UUID userId) {
-        return friendRepository.findByFriendshipIsFalseAndUserId2(userId);
+    public List<Friend> getFriendRequests(UUID myId) {
+        return friendRepository.findByFriendshipIsFalseAndTargetId(myId);
     }
 }
