@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface FriendService {
     // 친구 목록 조회
-    List<Friend> getFriends(UUID userId);
+    List<Friend> getFriends(UUID myId);
 
     // 친구 요청
     void acceptFriendRequest(FriendRequest request);
@@ -24,5 +24,5 @@ public interface FriendService {
     void removeFriend(Long friendId);
 
     // 친구 요청 목록
-    List<Friend> getFriendRequests(UUID userId);
+    List<Friend> getFriendRequests(UUID myId);
 }
