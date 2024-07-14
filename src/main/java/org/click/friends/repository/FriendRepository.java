@@ -13,4 +13,8 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     void deleteByMyIdAndTargetId(UUID targetId, UUID myId);
     // 친구 요청 목록
     List<Friend> findByFriendshipIsFalseAndTargetId(UUID myId);
+    // 이미 친구 요청을 보낸 유저입니다.
+    Boolean existsByFriendshipIsFalseAndMyIdAndTargetId(UUID myId, UUID targetId);
+    // 이미 친구 사이인 유저입니다.
+    Boolean existsByFriendshipIsTrueAndMyIdAndTargetId(UUID myId, UUID targetId);
 }

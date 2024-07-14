@@ -26,6 +26,12 @@ public class FriendServiceImpl implements FriendService {
     // 친구 요청
     @Override
     public void acceptFriendRequest(FriendRequest request) {
+        // 이미 친구 요청을 보낸 유저입니다.
+        if(friendRepository.existsByFriendshipIsFalseAndMyIdAndTargetId(request.my_id(), request.target_id()))
+            throw new IllegalArgumentException("이미 친구 요청을 보낸 유저입니다.");
+        // 이미 친구 사이인 유저입니다.
+        if(friendRepository.existsByFriendshipIsTrueAndMyIdAndTargetId(request.my_id(), request.target_id()))
+            throw new IllegalArgumentException("이미 친구 사이인 유저입니다.");
         friendRepository.save(request.toEntity());
     }
 
