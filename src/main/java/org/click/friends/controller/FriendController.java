@@ -6,6 +6,7 @@ import org.click.friends.dto.request.ConfirmFriendRequest;
 import org.click.friends.dto.request.FriendRequest;
 import org.click.friends.entity.Friend;
 import org.click.friends.service.FriendService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,35 +29,39 @@ public class FriendController {
 
     // 친구 요청
     @PostMapping("/request")
-    public void acceptFriendRequest(
+    public ResponseEntity<String> acceptFriendRequest(
             @RequestBody FriendRequest request
     ) {
         friendService.acceptFriendRequest(request);
+        return ResponseEntity.ok("친구 요청을 보냈습니다.");
     }
 
     // 친구 요청 수락
     @PutMapping("/request/confirm/{friendId}")
-    public void confirmFriendRequest(
+    public ResponseEntity<String> confirmFriendRequest(
             @PathVariable("friendId") Long friendId,
             @RequestBody ConfirmFriendRequest request
     ) {
         friendService.confirmFriendRequest(friendId, request);
+        return ResponseEntity.ok("친구 요청을 수락했습니다.");
     }
 
     // 친구 요청 거절
     @DeleteMapping("/request/reject/{friendId}")
-    public void rejectFriendRequest(
+    public ResponseEntity<String> rejectFriendRequest(
             @PathVariable("friendId") Long friendId
     ) {
         friendService.rejectFriendRequest(friendId);
+        return ResponseEntity.ok("친구 요청을 거절했습니다.");
     }
 
     // 친구 삭제
     @DeleteMapping("/{friendId}")
-    public void removeFriend(
+    public ResponseEntity<String> removeFriend(
             @PathVariable("friendId") Long friendId
     ) {
         friendService.removeFriend(friendId);
+        return ResponseEntity.ok("삭제되었습니다.");
     }
 
     // 친구 요청 목록
