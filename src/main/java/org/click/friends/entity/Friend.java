@@ -3,8 +3,6 @@ package org.click.friends.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.UUID;
-
 @Entity
 @Getter
 @AllArgsConstructor
@@ -19,8 +17,8 @@ public class Friend {
     @Setter
     @Column(name = "FRIENDSHIP")
     private Boolean friendship;
-    @Column(name = "MY_ID")
-    private UUID myId;
-    @Column(name = "TARGET_ID")
-    private UUID targetId;
+    @Column(name = "MY_CODE")
+    private String myCode;
+    @Column(name = "TARGET_CODE")
+    private String targetCode;
 }

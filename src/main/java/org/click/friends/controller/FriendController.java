@@ -2,15 +2,13 @@ package org.click.friends.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.click.friends.dto.request.ConfirmFriendRequest;
-import org.click.friends.dto.request.FriendRequest;
-import org.click.friends.entity.Friend;
+import org.click.friends.global.JwtUtils;
+import org.click.friends.global.dto.UserListResponse;
 import org.click.friends.service.FriendService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,57 +16,97 @@ import java.util.UUID;
 public class FriendController {
 
     private final FriendService friendService;
+    private final JwtUtils jwtUtils;
 
     // 친구 목록 조회
-    @GetMapping("/{userId}")
-    public List<Friend> getFriends(
-            @PathVariable("userId")UUID myId
+    @GetMapping
+    public List<UserListResponse> getFriends(
+            @RequestHeader("Authorization") String token
     ) {
-        return friendService.getFriends(myId);
+        if(token != null && token.startsWith("Bearer ")) {
+            String bearerToken = token.substring(7);
+            String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
+            return friendService.getFriends(myCode);
+        } else {
+            throw new IllegalArgumentException("로그인 후 다시 이용해 주세요.");
+        }
     }
 
     // 친구 요청
-    @PostMapping("/request")
+    @PostMapping("/request/{code}")
     public ResponseEntity<String> acceptFriendRequest(
-            @RequestBody FriendRequest request
+            @RequestHeader("Authorization") String token,
+            @PathVariable("code") String code
     ) {
-        friendService.acceptFriendRequest(request);
-        return ResponseEntity.ok("친구 요청을 보냈습니다.");
+        if(token != null && token.startsWith("Bearer ")) {
+            String bearerToken = token.substring(7);
+            String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
+            friendService.acceptFriendRequest(code, myCode);
+            return ResponseEntity.ok("친구 요청을 보냈습니다.");
+        } else {
+            throw new IllegalArgumentException("로그인 후 다시 이용해 주세요.");
+        }
     }
 
     // 친구 요청 수락
-    @PutMapping("/request/confirm/{friendId}")
+    @PutMapping("/request/confirm/{code}")
     public ResponseEntity<String> confirmFriendRequest(
-            @PathVariable("friendId") Long friendId,
-            @RequestBody ConfirmFriendRequest request
+            @RequestHeader("Authorization") String token,
+            @PathVariable("code") String code
     ) {
-        friendService.confirmFriendRequest(friendId, request);
-        return ResponseEntity.ok("친구 요청을 수락했습니다.");
+        if(token != null && token.startsWith("Bearer ")) {
+            String bearerToken = token.substring(7);
+            String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
+            friendService.confirmFriendRequest(code, myCode);
+            return ResponseEntity.ok("친구 요청을 수락했습니다.");
+        } else {
+            throw new IllegalArgumentException("로그인 후 다시 이용해 주세요.");
+        }
     }
 
     // 친구 요청 거절
-    @DeleteMapping("/request/reject/{friendId}")
+    @DeleteMapping("/request/reject/{code}")
     public ResponseEntity<String> rejectFriendRequest(
-            @PathVariable("friendId") Long friendId
+            @RequestHeader("Authorization") String token,
+            @PathVariable("code") String code
     ) {
-        friendService.rejectFriendRequest(friendId);
-        return ResponseEntity.ok("친구 요청을 거절했습니다.");
+        if(token != null && token.startsWith("Bearer ")) {
+            String bearerToken = token.substring(7);
+            String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
+            friendService.rejectFriendRequest(code, myCode);
+            return ResponseEntity.ok("친구 요청을 거절했습니다.");
+        } else {
+            throw new IllegalArgumentException("로그인 후 다시 이용해 주세요.");
+        }
     }
 
     // 친구 삭제
-    @DeleteMapping("/{friendId}")
+    @DeleteMapping("/{code}")
     public ResponseEntity<String> removeFriend(
-            @PathVariable("friendId") Long friendId
+            @RequestHeader("Authorization") String token,
+            @PathVariable("code") String code
     ) {
-        friendService.removeFriend(friendId);
-        return ResponseEntity.ok("삭제되었습니다.");
+        if(token != null && token.startsWith("Bearer ")) {
+            String bearerToken = token.substring(7);
+            String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
+            friendService.removeFriend(code, myCode);
+            return ResponseEntity.ok("삭제되었습니다.");
+        } else {
+            throw new IllegalArgumentException("로그인 후 다시 이용해 주세요.");
+        }
     }
 
     // 친구 요청 목록
-    @GetMapping("/{userId}/request")
-    public List<Friend> getFriendRequests(
-            @PathVariable("userId") UUID myId
+    @GetMapping("/request")
+    public List<UserListResponse> getFriendRequests(
+            @RequestHeader("Authorization") String token
     ) {
-        return friendService.getFriendRequests(myId);
+        if(token != null && token.startsWith("Bearer ")) {
+            String bearerToken = token.substring(7);
+            String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
+            return friendService.getFriendRequests(myCode);
+        } else {
+            throw new IllegalArgumentException("로그인 후 다시 이용해 주세요.");
+        }
     }
 }

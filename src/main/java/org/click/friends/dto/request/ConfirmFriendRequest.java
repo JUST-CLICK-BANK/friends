@@ -2,19 +2,16 @@ package org.click.friends.dto.request;
 
 import org.click.friends.entity.Friend;
 
-import java.util.UUID;
-
 public record ConfirmFriendRequest(
         Long friend_id,
         Boolean friendship,
-        UUID my_id,
-        UUID target_id
+        String target_code
 ) {
-    public Friend toEntity() {
+    public Friend toEntity(String myCode) {
         return Friend.builder()
                 .friendship(true)
-                .myId(my_id)
-                .targetId(target_id)
+                .myCode(myCode)
+                .targetCode(target_code)
                 .build();
     }
 }
