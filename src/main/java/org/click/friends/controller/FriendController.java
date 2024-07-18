@@ -21,9 +21,9 @@ public class FriendController {
     // 친구 목록 조회
     @GetMapping
     public List<UserListResponse> getFriends(
-            @RequestHeader("Authorization") String token
+        @RequestHeader("Authorization") String token
     ) {
-        if(token != null && token.startsWith("Bearer ")) {
+        if (token != null && token.startsWith("Bearer ")) {
             String bearerToken = token.substring(7);
             String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
             return friendService.getFriends(myCode);
@@ -35,10 +35,10 @@ public class FriendController {
     // 친구 요청
     @PostMapping("/request/{code}")
     public ResponseEntity<String> acceptFriendRequest(
-            @RequestHeader("Authorization") String token,
-            @PathVariable("code") String code
+        @RequestHeader("Authorization") String token,
+        @PathVariable("code") String code
     ) {
-        if(token != null && token.startsWith("Bearer ")) {
+        if (token != null && token.startsWith("Bearer ")) {
             String bearerToken = token.substring(7);
             String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
             friendService.acceptFriendRequest(code, myCode);
@@ -51,10 +51,10 @@ public class FriendController {
     // 친구 요청 수락
     @PutMapping("/request/confirm/{code}")
     public ResponseEntity<String> confirmFriendRequest(
-            @RequestHeader("Authorization") String token,
-            @PathVariable("code") String code
+        @RequestHeader("Authorization") String token,
+        @PathVariable("code") String code
     ) {
-        if(token != null && token.startsWith("Bearer ")) {
+        if (token != null && token.startsWith("Bearer ")) {
             String bearerToken = token.substring(7);
             String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
             friendService.confirmFriendRequest(code, myCode);
@@ -67,10 +67,10 @@ public class FriendController {
     // 친구 요청 거절
     @DeleteMapping("/request/reject/{code}")
     public ResponseEntity<String> rejectFriendRequest(
-            @RequestHeader("Authorization") String token,
-            @PathVariable("code") String code
+        @RequestHeader("Authorization") String token,
+        @PathVariable("code") String code
     ) {
-        if(token != null && token.startsWith("Bearer ")) {
+        if (token != null && token.startsWith("Bearer ")) {
             String bearerToken = token.substring(7);
             String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
             friendService.rejectFriendRequest(code, myCode);
@@ -83,10 +83,10 @@ public class FriendController {
     // 친구 삭제
     @DeleteMapping("/{code}")
     public ResponseEntity<String> removeFriend(
-            @RequestHeader("Authorization") String token,
-            @PathVariable("code") String code
+        @RequestHeader("Authorization") String token,
+        @PathVariable("code") String code
     ) {
-        if(token != null && token.startsWith("Bearer ")) {
+        if (token != null && token.startsWith("Bearer ")) {
             String bearerToken = token.substring(7);
             String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
             friendService.removeFriend(code, myCode);
@@ -99,9 +99,9 @@ public class FriendController {
     // 친구 요청 목록
     @GetMapping("/request")
     public List<UserListResponse> getFriendRequests(
-            @RequestHeader("Authorization") String token
+        @RequestHeader("Authorization") String token
     ) {
-        if(token != null && token.startsWith("Bearer ")) {
+        if (token != null && token.startsWith("Bearer ")) {
             String bearerToken = token.substring(7);
             String myCode = jwtUtils.parseToken(bearerToken).getMyCode();
             return friendService.getFriendRequests(myCode);

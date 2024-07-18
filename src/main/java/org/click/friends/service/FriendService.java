@@ -5,6 +5,7 @@ import org.click.friends.global.dto.UserListResponse;
 import java.util.List;
 
 public interface FriendService {
+
     // 친구 목록 조회
     List<UserListResponse> getFriends(String myCode);
 

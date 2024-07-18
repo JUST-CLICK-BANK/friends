@@ -11,6 +11,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class ApiUser {
+
     public final FeignUser feignUser;
 
     @Async

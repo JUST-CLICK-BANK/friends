@@ -26,8 +26,8 @@ public class FriendServiceImpl implements FriendService {
         List<Friend> friendList = friendRepository.findByFriendshipIsTrueAndMyCode(myCode);
 
         String[] collect = friendList.stream()
-                .map(Friend::getTargetCode)
-                .toArray(String[]::new);
+            .map(Friend::getTargetCode)
+            .toArray(String[]::new);
 
         return apiUser.getUsers(collect);
     }
@@ -37,19 +37,23 @@ public class FriendServiceImpl implements FriendService {
     public void acceptFriendRequest(String code, String myCode) {
         UserResponse user = apiUser.getUser(code);
 
-        if(user == null)
+        if (user == null) {
             throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
+        }
         FriendRequest request = new FriendRequest(null, false, code);
         // 이미 친구 요청을 보낸 유저입니다.
-        if(friendRepository.existsByFriendshipIsFalseAndMyCodeAndTargetCode(myCode, code)
-        || friendRepository.existsByFriendshipIsFalseAndMyCodeAndTargetCode(code, myCode))
+        if (friendRepository.existsByFriendshipIsFalseAndMyCodeAndTargetCode(myCode, code)
+            || friendRepository.existsByFriendshipIsFalseAndMyCodeAndTargetCode(code, myCode)) {
             throw new IllegalArgumentException("이미 친구 요청을 보낸 유저입니다.");
+        }
         // 이미 친구 사이인 유저입니다.
-        if(friendRepository.existsByFriendshipIsTrueAndMyCodeAndTargetCode(myCode, code))
+        if (friendRepository.existsByFriendshipIsTrueAndMyCodeAndTargetCode(myCode, code)) {
             throw new IllegalArgumentException("이미 친구 사이인 유저입니다.");
+        }
         // 자기 자신입니다.
-        if(code.equals(myCode))
+        if (code.equals(myCode)) {
             throw new IllegalArgumentException("자기 자신입니다.");
+        }
 
         friendRepository.save(request.toEntity(myCode));
     }
@@ -59,11 +63,13 @@ public class FriendServiceImpl implements FriendService {
     @Transactional
     public void confirmFriendRequest(String code, String myCode) {
         UserResponse user = apiUser.getUser(code);
-        if(user == null)
+        if (user == null) {
             throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
+        }
 
         ConfirmFriendRequest request = new ConfirmFriendRequest(null, true, code);
-        Friend friend = friendRepository.findByFriendshipIsFalseAndMyCodeAndTargetCode(code, myCode);
+        Friend friend = friendRepository.findByFriendshipIsFalseAndMyCodeAndTargetCode(code,
+            myCode);
         friend.setFriendship(true);
 
         friendRepository.save(friend); // 기존 데이터 업데이트
@@ -74,10 +80,12 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public void rejectFriendRequest(String code, String myCode) {
         UserResponse user = apiUser.getUser(code);
-        if(user == null)
+        if (user == null) {
             throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
+        }
 
-        Friend friend = friendRepository.findByFriendshipIsFalseAndMyCodeAndTargetCode(code, myCode);
+        Friend friend = friendRepository.findByFriendshipIsFalseAndMyCodeAndTargetCode(code,
+            myCode);
 
         friendRepository.delete(friend);
     }
@@ -87,8 +95,9 @@ public class FriendServiceImpl implements FriendService {
     @Transactional
     public void removeFriend(String code, String myCode) {
         UserResponse user = apiUser.getUser(code);
-        if(user == null)
+        if (user == null) {
             throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
+        }
 
         friendRepository.deleteByMyCodeAndTargetCode(myCode, code);
         friendRepository.deleteByMyCodeAndTargetCode(code, myCode);
@@ -97,11 +106,12 @@ public class FriendServiceImpl implements FriendService {
     // 친구 요청 목록
     @Override
     public List<UserListResponse> getFriendRequests(String myCode) {
-        List<Friend> requestFriendList = friendRepository.findByFriendshipIsFalseAndTargetCode(myCode);
+        List<Friend> requestFriendList = friendRepository.findByFriendshipIsFalseAndTargetCode(
+            myCode);
 
         String[] collect = requestFriendList.stream()
-                .map(Friend::getMyCode)
-                .toArray(String[]::new);
+            .map(Friend::getMyCode)
+            .toArray(String[]::new);
 
         return apiUser.getUsers(collect);
     }
