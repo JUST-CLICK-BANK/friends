@@ -13,11 +13,11 @@ public interface FeignUser {
 
     @GetMapping(value = "/api/v1/auth/friends")
     List<UserListResponse> users(
-            @RequestParam("codes") String[] codes
+        @RequestParam("codes") String[] codes
     );
 
     @GetMapping(value = "/api/v1/auth")
     UserResponse user(
-            @RequestParam("code") String code
+        @RequestParam("code") String code
     );
 }

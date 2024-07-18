@@ -12,24 +12,25 @@ import java.util.UUID;
 
 @Component
 public class JwtUtils {
+
     private final SecretKey secretKey;
 
     public Friend parseToken(String token) {
         Claims payload = (Claims) Jwts.parser()
-                .verifyWith(secretKey)
-                .build()
-                .parse(token)
-                .getPayload();
+            .verifyWith(secretKey)
+            .build()
+            .parse(token)
+            .getPayload();
 
         String myCode = payload.get("code", String.class);
 
         return Friend.builder()
-                .myCode(myCode)
-                .build();
+            .myCode(myCode)
+            .build();
     }
 
     public JwtUtils(
-            @Value("${token.secret}") String secret
+        @Value("${token.secret}") String secret
     ) {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     }
