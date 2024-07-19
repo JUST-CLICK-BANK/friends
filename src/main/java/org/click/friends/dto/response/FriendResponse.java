@@ -1,6 +1,6 @@
 package org.click.friends.dto.response;
 
-import org.click.friends.entity.Friend;
+import org.click.friends.entity.Friends;
 
 public record FriendResponse(
     Long friend_id,
@@ -9,7 +9,7 @@ public record FriendResponse(
     String target_code
 ) {
 
-    public static FriendResponse from(Friend friend) {
+    public static FriendResponse from(Friends friend) {
         return new FriendResponse(
             friend.getFriendId(),
             friend.getFriendship(),

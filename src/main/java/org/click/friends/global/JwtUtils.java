@@ -3,7 +3,7 @@ package org.click.friends.global;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.click.friends.entity.Friend;
+import org.click.friends.entity.Friends;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class JwtUtils {
 
     private final SecretKey secretKey;
 
-    public Friend parseToken(String token) {
+    public Friends parseToken(String token) {
         Claims payload = (Claims) Jwts.parser()
             .verifyWith(secretKey)
             .build()
@@ -24,7 +24,7 @@ public class JwtUtils {
 
         String myCode = payload.get("code", String.class);
 
-        return Friend.builder()
+        return Friends.builder()
             .myCode(myCode)
             .build();
     }

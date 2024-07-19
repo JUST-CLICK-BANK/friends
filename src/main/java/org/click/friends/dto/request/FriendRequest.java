@@ -1,6 +1,6 @@
 package org.click.friends.dto.request;
 
-import org.click.friends.entity.Friend;
+import org.click.friends.entity.Friends;
 
 public record FriendRequest(
     Long friend_id,
@@ -8,8 +8,8 @@ public record FriendRequest(
     String target_code
 ) {
 
-    public Friend toEntity(String myCode) {
-        return Friend.builder()
+    public Friends toEntity(String myCode) {
+        return Friends.builder()
             .friendship(false)
             .myCode(myCode)
             .targetCode(target_code)
