@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: click_friends
+  datasource:
+    url: jdbc:mysql://${host}/${database}?&serverTimezone=Asia/Seoul
+    username: ${username}
+    password: ${password}
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
