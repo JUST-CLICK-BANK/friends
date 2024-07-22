@@ -2,7 +2,7 @@ spring:
   application:
     name: click_friends
   datasource:
-    url: jdbc:mysql://click-mysql-friend:3306/click_friends?&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://${host}/${database}?&serverTimezone=Asia/Seoul
     username: ${username}
     password: ${password}
   jpa:
