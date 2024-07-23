@@ -17,7 +17,7 @@ public class Friend {
     private Long friendId;
     @Setter
     @Column(name = "FRIENDSHIP")
-    private Boolean friendship;
+    private boolean friendship;
     @Column(name = "MY_CODE")
     private String myCode;
     @Column(name = "TARGET_CODE")
