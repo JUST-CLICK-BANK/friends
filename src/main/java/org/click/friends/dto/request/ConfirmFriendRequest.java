@@ -4,7 +4,7 @@ import org.click.friends.entity.Friends;
 
 public record ConfirmFriendRequest(
     Long friend_id,
-    Boolean friendship,
+    boolean friendship,
     String target_code
 ) {
 
