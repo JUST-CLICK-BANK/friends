@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.click.friends.dto.request.ConfirmFriendRequest;
 import org.click.friends.dto.request.FriendRequest;
 import org.click.friends.entity.Friend;
+import org.click.friends.exception.FriendErrorCode;
+import org.click.friends.exception.FriendException;
 import org.click.friends.global.api.ApiUser;
 import org.click.friends.global.dto.UserListResponse;
 import org.click.friends.global.dto.UserResponse;
@@ -38,21 +40,21 @@ public class FriendServiceImpl implements FriendService {
         UserResponse user = apiUser.getUser(code);
 
         if (user == null) {
-            throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
+            throw new FriendException(FriendErrorCode.NOT_FOUND_USER);
         }
         FriendRequest request = new FriendRequest(null, false, code);
         // 이미 친구 요청을 보낸 유저입니다.
         if (friendRepository.existsByFriendshipIsFalseAndMyCodeAndTargetCode(myCode, code)
             || friendRepository.existsByFriendshipIsFalseAndMyCodeAndTargetCode(code, myCode)) {
-            throw new IllegalArgumentException("이미 친구 요청을 보낸 유저입니다.");
+            throw new FriendException(FriendErrorCode.ALREADY_REQUEST);
         }
         // 이미 친구 사이인 유저입니다.
         if (friendRepository.existsByFriendshipIsTrueAndMyCodeAndTargetCode(myCode, code)) {
-            throw new IllegalArgumentException("이미 친구 사이인 유저입니다.");
+            throw new FriendException(FriendErrorCode.ALREADY_FRIEND);
         }
         // 자기 자신입니다.
         if (code.equals(myCode)) {
-            throw new IllegalArgumentException("자기 자신입니다.");
+            throw new FriendException(FriendErrorCode.THIS_IS_ME);
         }
 
         friendRepository.save(request.toEntity(myCode));
@@ -64,7 +66,7 @@ public class FriendServiceImpl implements FriendService {
     public void confirmFriendRequest(String code, String myCode) {
         UserResponse user = apiUser.getUser(code);
         if (user == null) {
-            throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
+            throw new FriendException(FriendErrorCode.NOT_FOUND_USER);
         }
 
         ConfirmFriendRequest request = new ConfirmFriendRequest(null, true, code);
@@ -81,7 +83,7 @@ public class FriendServiceImpl implements FriendService {
     public void rejectFriendRequest(String code, String myCode) {
         UserResponse user = apiUser.getUser(code);
         if (user == null) {
-            throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
+            throw new FriendException(FriendErrorCode.NOT_FOUND_USER);
         }
 
         Friend friend = friendRepository.findByFriendshipIsFalseAndMyCodeAndTargetCode(code,
@@ -96,7 +98,7 @@ public class FriendServiceImpl implements FriendService {
     public void removeFriend(String code, String myCode) {
         UserResponse user = apiUser.getUser(code);
         if (user == null) {
-            throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
+            throw new FriendException(FriendErrorCode.NOT_FOUND_USER);
         }
 
         friendRepository.deleteByMyCodeAndTargetCode(myCode, code);
