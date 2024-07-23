@@ -8,8 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "FRIENDS")
-public class Friend {
+@Table(name = "FRIENDS", schema = "click_friends")
+public class Friends {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
