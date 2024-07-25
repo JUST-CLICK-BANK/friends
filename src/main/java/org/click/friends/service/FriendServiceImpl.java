@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.click.friends.dto.request.ConfirmFriendRequest;
 import org.click.friends.dto.request.FriendRequest;
-import org.click.friends.entity.Friend;
+import org.click.friends.entity.Friends;
 import org.click.friends.exception.FriendErrorCode;
 import org.click.friends.exception.FriendException;
 import org.click.friends.global.api.ApiUser;
@@ -25,10 +25,10 @@ public class FriendServiceImpl implements FriendService {
     // 친구 목록 조회
     @Override
     public List<UserListResponse> getFriends(String myCode) {
-        List<Friend> friendList = friendRepository.findByFriendshipIsTrueAndMyCode(myCode);
+        List<Friends> friendList = friendRepository.findByFriendshipIsTrueAndMyCode(myCode);
 
         String[] collect = friendList.stream()
-            .map(Friend::getTargetCode)
+            .map(Friends::getTargetCode)
             .toArray(String[]::new);
 
         return apiUser.getUsers(collect);
@@ -70,7 +70,7 @@ public class FriendServiceImpl implements FriendService {
         }
 
         ConfirmFriendRequest request = new ConfirmFriendRequest(null, true, code);
-        Friend friend = friendRepository.findByFriendshipIsFalseAndMyCodeAndTargetCode(code,
+        Friends friend = friendRepository.findByFriendshipIsFalseAndMyCodeAndTargetCode(code,
             myCode);
         friend.setFriendship(true);
 
@@ -86,7 +86,7 @@ public class FriendServiceImpl implements FriendService {
             throw new FriendException(FriendErrorCode.NOT_FOUND_USER);
         }
 
-        Friend friend = friendRepository.findByFriendshipIsFalseAndMyCodeAndTargetCode(code,
+        Friends friend = friendRepository.findByFriendshipIsFalseAndMyCodeAndTargetCode(code,
             myCode);
 
         friendRepository.delete(friend);
@@ -108,11 +108,11 @@ public class FriendServiceImpl implements FriendService {
     // 친구 요청 목록
     @Override
     public List<UserListResponse> getFriendRequests(String myCode) {
-        List<Friend> requestFriendList = friendRepository.findByFriendshipIsFalseAndTargetCode(
+        List<Friends> requestFriendList = friendRepository.findByFriendshipIsFalseAndTargetCode(
             myCode);
 
         String[] collect = requestFriendList.stream()
-            .map(Friend::getMyCode)
+            .map(Friends::getMyCode)
             .toArray(String[]::new);
 
         return apiUser.getUsers(collect);

@@ -109,4 +109,12 @@ public class FriendController {
             throw new IllegalArgumentException("로그인 후 다시 이용해 주세요.");
         }
     }
+
+    // 모임통장 - 친구 목록 조회
+    @GetMapping("/{code}")
+    public List<UserListResponse> inviteAccountFriends (
+        @PathVariable("code") String userCode
+    ) {
+        return friendService.getFriends(userCode);
+    }
 }
