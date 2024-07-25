@@ -111,7 +111,7 @@ public class FriendController {
     }
 
     // 모임통장 - 친구 목록 조회
-    @GetMapping("/{code}")
+    @GetMapping("/invite/{code}")
     public List<UserListResponse> inviteAccountFriends (
         @PathVariable("code") String userCode
     ) {
