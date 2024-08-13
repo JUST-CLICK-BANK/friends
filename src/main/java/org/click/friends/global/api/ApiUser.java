@@ -1,8 +1,8 @@
 package org.click.friends.global.api;
 
 import lombok.RequiredArgsConstructor;
-import org.click.friends.global.dto.UserListResponse;
-import org.click.friends.global.dto.UserResponse;
+import org.click.friends.global.dto.response.UserListResponse;
+import org.click.friends.global.dto.response.UserResponse;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 

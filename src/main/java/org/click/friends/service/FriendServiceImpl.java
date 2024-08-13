@@ -8,8 +8,8 @@ import org.click.friends.entity.Friends;
 import org.click.friends.exception.FriendErrorCode;
 import org.click.friends.exception.FriendException;
 import org.click.friends.global.api.ApiUser;
-import org.click.friends.global.dto.UserListResponse;
-import org.click.friends.global.dto.UserResponse;
+import org.click.friends.global.dto.response.UserListResponse;
+import org.click.friends.global.dto.response.UserResponse;
 import org.click.friends.repository.FriendRepository;
 import org.springframework.stereotype.Service;
 

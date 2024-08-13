@@ -1,4 +1,4 @@
-package org.click.friends.global.dto;
+package org.click.friends.global.dto.response;
 
 import java.util.UUID;
 

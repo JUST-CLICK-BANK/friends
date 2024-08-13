@@ -1,6 +1,6 @@
 package org.click.friends.service;
 
-import org.click.friends.global.dto.UserListResponse;
+import org.click.friends.global.dto.response.UserListResponse;
 
 import java.util.List;
 
