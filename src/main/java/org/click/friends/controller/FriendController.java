@@ -3,7 +3,7 @@ package org.click.friends.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.click.friends.global.JwtUtils;
-import org.click.friends.global.dto.UserListResponse;
+import org.click.friends.global.dto.response.UserListResponse;
 import org.click.friends.service.FriendService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
