@@ -6,15 +6,17 @@ public record UserResponse(
     UUID id,
     String code,
     String img,
-    String name
+    String name,
+    String account
 ) {
 
-    public static UserResponse from(UUID id, String code, String img, String name) {
+    public static UserResponse from(UUID id, String code, String img, String name, String account) {
         return new UserResponse(
             id,
             code,
             img,
-            name
+            name,
+            account
         );
     }
 }
