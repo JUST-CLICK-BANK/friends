@@ -8,6 +8,7 @@ import org.click.friends.entity.Friends;
 import org.click.friends.exception.FriendErrorCode;
 import org.click.friends.exception.FriendException;
 import org.click.friends.global.api.ApiUser;
+import org.click.friends.global.dto.response.UserInfo;
 import org.click.friends.global.dto.response.UserListResponse;
 import org.click.friends.global.dto.response.UserResponse;
 import org.click.friends.repository.FriendRepository;
@@ -24,14 +25,16 @@ public class FriendServiceImpl implements FriendService {
 
     // 친구 목록 조회
     @Override
-    public List<UserListResponse> getFriends(String myCode) {
+    public UserInfo getFriends(String myCode, String myAccount) {
         List<Friends> friendList = friendRepository.findByFriendshipIsTrueAndMyCode(myCode);
 
         String[] collect = friendList.stream()
             .map(Friends::getTargetCode)
             .toArray(String[]::new);
 
-        return apiUser.getUsers(collect);
+        List<UserListResponse> friends = apiUser.getUsers(collect);
+
+        return UserInfo.from(myAccount, friends);
     }
 
     // 친구 요청
@@ -113,6 +116,18 @@ public class FriendServiceImpl implements FriendService {
 
         String[] collect = requestFriendList.stream()
             .map(Friends::getMyCode)
+            .toArray(String[]::new);
+
+        return apiUser.getUsers(collect);
+    }
+
+    // 모임통장 - 친구 목록 조회
+    @Override
+    public List<UserListResponse> inviteAccountFriends(String myCode) {
+        List<Friends> friendList = friendRepository.findByFriendshipIsTrueAndMyCode(myCode);
+
+        String[] collect = friendList.stream()
+            .map(Friends::getTargetCode)
             .toArray(String[]::new);
 
         return apiUser.getUsers(collect);
